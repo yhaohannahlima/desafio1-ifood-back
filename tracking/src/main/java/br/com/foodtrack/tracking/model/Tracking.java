@@ -36,6 +36,7 @@ public class Tracking {
 	
 	@ManyToOne
 	@JoinColumn(name = "idPedido")
+	@JsonIgnoreProperties("listaRastreamentoPedidos")
 	private Pedido pedido;
 	
 	@ManyToOne
