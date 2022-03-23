@@ -28,16 +28,14 @@ create table pedido (
  foreign key(idEntregador) references entregador(id)		
 );
 
-Drop table if exists tracking_history cascade;
-create table tracking_history if not exists(
+Drop table if exists rastreamento cascade;
+create table rastreamento(
 	
 	id serial not null primary key,
 	latitude double precision,
 	longitude double precision,
 	tempo timestamp,
 	idPedido int not null,
-	idEntregador int not null,
-	statusEntrega varchar(30) not null, 
-	foreign key(idPedido) references pedido(id),
-	foreign key(idEntregador) references entregador(id)
+	foreign key(idPedido) references pedido(id)
+	
 )

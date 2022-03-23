@@ -40,13 +40,7 @@ public class Entregador {
 	@JsonIgnoreProperties("entregador")
 	private List<Pedido> listaPedidos;
 	
-	
-	@OneToMany(mappedBy = "entregador")
-	@JsonIgnoreProperties("entregador")
-	private List<Tracking> listaRastreamentos;
-	
-	
-	
+		
 
 	public Integer getCodigoEntregador() {
 		return codigoEntregador;
@@ -104,14 +98,6 @@ public class Entregador {
 		this.listaPedidos = listaPedidos;
 	}
 
-	public List<Tracking> getListaRastreamentos() {
-		return listaRastreamentos;
-	}
-
-	public void setListaRastreamentos(List<Tracking> listaRastreamentos) {
-		this.listaRastreamentos = listaRastreamentos;
-	}
-	
-	
+		
 
 }

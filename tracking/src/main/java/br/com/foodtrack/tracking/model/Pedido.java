@@ -42,7 +42,7 @@ public class Pedido {
 	
 	@OneToMany(mappedBy = "pedido")
 	@JsonIgnoreProperties("pedido")
-	private List<Tracking> listaRastramentoPedidos;
+	private List<Rastreamento> listaRastreamentoPedidos;
 
 	
 
@@ -86,12 +86,12 @@ public class Pedido {
 		this.entregador = entregador;
 	}
 	
-	public List<Tracking> getListaRastramentoPedidos() {
-		return listaRastramentoPedidos;
+	public List<Rastreamento> getListaRastreamentoPedidos() {
+		return listaRastreamentoPedidos;
 	}
 
-	public void setListaRastramentoPedidos(List<Tracking> listaRastramentoPedidos) {
-		this.listaRastramentoPedidos = listaRastramentoPedidos;
+	public void setListaRastreamentoPedidos(List<Rastreamento> listaRastramentoPedidos) {
+		this.listaRastreamentoPedidos = listaRastramentoPedidos;
 	}
 	
 }
