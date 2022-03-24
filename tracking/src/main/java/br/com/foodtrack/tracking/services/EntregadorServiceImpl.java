@@ -18,8 +18,8 @@ public class EntregadorServiceImpl implements IEntregadorService{
 
 	@Override
 	public List<EntregadorDTO> buscaTodos() {
-		
-		return dao.buscarTodos();
+		return null;
+//		return dao.buscarTodos();
 	}
 	
 

@@ -45,6 +45,14 @@ public class Pedido {
 	private List<Rastreamento> listaRastreamentoPedidos;
 
 	
+	
+	
+	public Pedido(Integer codigoPedido, LocalDate dataPedido, String statusPedido, Cliente cliente) {
+		super();
+		this.codigoPedido = codigoPedido;
+		this.dataPedido = dataPedido;
+		this.statusPedido = statusPedido;		
+	}
 
 	public Integer getCodigoPedido() {
 		return codigoPedido;

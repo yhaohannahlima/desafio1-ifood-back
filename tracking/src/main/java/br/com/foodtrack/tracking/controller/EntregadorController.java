@@ -12,14 +12,14 @@ import br.com.foodtrack.tracking.services.IEntregadorService;
 
 @RestController
 public class EntregadorController {
-	
-	@Autowired
-	private IEntregadorService service;
-	
-	@GetMapping("/entregadores")
-	public ResponseEntity<List<EntregadorDTO>> buscarTodos(){
-		
-		return ResponseEntity.ok(service.buscaTodos());
-	}
+//	
+//	@Autowired
+//	private IEntregadorService service;
+//	
+//	@GetMapping("/entregadores")
+//	public ResponseEntity<List<EntregadorDTO>> buscarTodos(){
+//		
+//		return ResponseEntity.ok(service.buscaTodos());
+//	}
 
 }
