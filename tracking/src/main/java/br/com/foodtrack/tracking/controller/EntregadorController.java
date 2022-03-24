@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.foodtrack.tracking.model.Entregador;
+
 import br.com.foodtrack.tracking.services.IEntregadorService;
 
 @RestController
@@ -17,10 +18,8 @@ public class EntregadorController {
 	private IEntregadorService service;
 	
 	
-	
 	@GetMapping("/entregadores")
 	public ResponseEntity<List<Entregador>> buscarTodos(){
-	
 		return ResponseEntity.ok(service.buscaTodos());
 	}
 

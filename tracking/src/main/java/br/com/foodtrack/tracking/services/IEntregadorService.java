@@ -7,6 +7,5 @@ import br.com.foodtrack.tracking.model.Entregador;
 
 
 public interface IEntregadorService {
-
 	public List<Entregador> buscaTodos();
 }
