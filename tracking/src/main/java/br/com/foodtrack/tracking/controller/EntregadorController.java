@@ -7,19 +7,20 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.foodtrack.tracking.DTO.EntregadorDTO;
+import br.com.foodtrack.tracking.model.Entregador;
+
 import br.com.foodtrack.tracking.services.IEntregadorService;
 
 @RestController
 public class EntregadorController {
-//	
-//	@Autowired
-//	private IEntregadorService service;
-//	
-//	@GetMapping("/entregadores")
-//	public ResponseEntity<List<EntregadorDTO>> buscarTodos(){
-//		
-//		return ResponseEntity.ok(service.buscaTodos());
-//	}
+	
+	@Autowired
+	private IEntregadorService service;
+	
+	
+	@GetMapping("/entregadores")
+	public ResponseEntity<List<Entregador>> buscarTodos(){
+		return ResponseEntity.ok(service.buscaTodos());
+	}
 
 }
