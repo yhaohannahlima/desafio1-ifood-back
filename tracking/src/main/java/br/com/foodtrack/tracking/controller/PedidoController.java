@@ -1,14 +1,15 @@
 package br.com.foodtrack.tracking.controller;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.foodtrack.tracking.Dao.PedidoDao;
 import br.com.foodtrack.tracking.model.Pedido;
 
 @RestController
@@ -16,16 +17,15 @@ import br.com.foodtrack.tracking.model.Pedido;
 public class PedidoController {
 	
 //	@Autowired
-//	private pedidoDAO dao
+	private PedidoDao dao;
 	
 	@GetMapping("/pedidos/abertos")
 	public ResponseEntity<?> listarTodosAbertos(){
-//	   Fake incial para front usar
-		
-		String[] pedidoFake = {"{codigoPedido:1}","{codigoPedido:2}"};
-	  
-		return ResponseEntity.status(200).body(pedidoFake);
-		
+		List<Pedido> pedidos = (List<Pedido>) dao.findAll();
+		if (pedidos == null) {
+			return ResponseEntity.noContent().build();
+		}
+		return ResponseEntity.status(200).body(pedidos);
 	}
 
 }
