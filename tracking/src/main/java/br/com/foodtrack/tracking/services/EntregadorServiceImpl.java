@@ -14,9 +14,9 @@ public class EntregadorServiceImpl implements IEntregadorService{
 	@Autowired
 	private EntregadorDao dao;
 	
-	
 
 	@Override
+
 	public List<Entregador> buscaTodos() {
 		return dao.buscarTodos();
 	}
