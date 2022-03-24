@@ -39,3 +39,6 @@ create table rastreamento(
 	foreign key(idPedido) references pedido(id)
 	
 )
+/*criacao de um novo campo na tabela pedido */
+alter table pedido add column descricao varchar(100) not null;
+
