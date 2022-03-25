@@ -4,6 +4,7 @@ package br.com.foodtrack.tracking.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,15 +17,13 @@ import br.com.foodtrack.tracking.model.Pedido;
 @CrossOrigin("*")
 public class PedidoController {
 	
-//	@Autowired
+	@Autowired
 	private PedidoDao dao;
 	
 	@GetMapping("/pedidos/abertos")
 	public ResponseEntity<?> listarTodosAbertos(){
 		List<Pedido> pedidos = (List<Pedido>) dao.findAll();
-		if (pedidos == null) {
-			return ResponseEntity.noContent().build();
-		}
+		
 		return ResponseEntity.status(200).body(pedidos);
 	}
 
