@@ -41,6 +41,10 @@ public class Pedido {
 	@JoinColumn(name = "identregador")
 	@JsonIgnoreProperties("listaPedidos")
 	private Entregador entregador;
+	
+	@OneToMany(mappedBy = "pedido")
+	@JsonIgnoreProperties("pedido")
+	private List<Rastreamento> listaRastreio;
 
 
 	public Integer getCodigoPedido() {
@@ -91,5 +95,14 @@ public class Pedido {
 		this.entregador = entregador;
 	}
 
+	public List<Rastreamento> getListaRastreio() {
+		return listaRastreio;
+	}
+
+	public void setListaRastreio(List<Rastreamento> listaRastreio) {
+		this.listaRastreio = listaRastreio;
+	}
+
+	
 
 }
