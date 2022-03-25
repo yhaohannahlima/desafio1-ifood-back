@@ -27,7 +27,7 @@ public class PedidoController {
 	}
 	
 	@GetMapping("/pedidos/abertos")
-	public ResponseEntity<?> listarTodosAbertos(){
+	public ResponseEntity<?> listarAbertos(){
 		List<Pedido> pedidos = (List<Pedido>) dao.buscarPedidosPorStatus("aberto");		
 		return ResponseEntity.status(200).body(pedidos);
 	}

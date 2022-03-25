@@ -20,30 +20,33 @@ public class PedidoDTO {
 	private Integer codigoPedido;
 	private LocalDate dataPedido;
 	private String statusPedido;
+	private String descricaoPedido;
 	private Cliente cliente;
 	private Integer codigoCliente;
 	private String clienteNome;
 	private Entregador entregador;
 	private Integer codigoEntregador;
-//	private List<Rastreamento> listaRastreamentoPedidos;
 
 	public PedidoDTO() {
 
 	}
 
-	public PedidoDTO(Integer codigoPedido, LocalDate dataPedido, String statusPedido) {
-		super();
-		this.codigoPedido = codigoPedido;
-		this.dataPedido = dataPedido;
-		this.statusPedido = statusPedido;		
-	}
-	
-	public PedidoDTO(Integer codigoPedido, LocalDate dataPedido, String statusPedido, Cliente cliente,
-			Integer codigoCliente, String clienteNome, Entregador entregador, Integer codigoEntregador) {
+	public PedidoDTO(Integer codigoPedido, LocalDate dataPedido, String statusPedido, String descricaoPedido) {
 		super();
 		this.codigoPedido = codigoPedido;
 		this.dataPedido = dataPedido;
 		this.statusPedido = statusPedido;
+		this.descricaoPedido = descricaoPedido;
+	}
+
+	public PedidoDTO(Integer codigoPedido, LocalDate dataPedido, String statusPedido, String descricaoPedido,
+			Cliente cliente, Integer codigoCliente, String clienteNome, Entregador entregador,
+			Integer codigoEntregador) {
+		super();
+		this.codigoPedido = codigoPedido;
+		this.dataPedido = dataPedido;
+		this.statusPedido = statusPedido;
+		this.descricaoPedido = descricaoPedido;
 		this.cliente = new Cliente();
 		this.clienteNome = cliente.getNome();
 		this.entregador = new Entregador();
@@ -72,6 +75,14 @@ public class PedidoDTO {
 
 	public void setStatusPedido(String statusPedido) {
 		this.statusPedido = statusPedido;
+	}
+
+	public String getDescricaoPedido() {
+		return descricaoPedido;
+	}
+
+	public void setDescricaoPedido(String descricaoPedido) {
+		this.descricaoPedido = descricaoPedido;
 	}
 
 	public Cliente getCliente() {
