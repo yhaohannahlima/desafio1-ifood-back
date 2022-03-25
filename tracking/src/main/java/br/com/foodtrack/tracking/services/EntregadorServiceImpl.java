@@ -1,3 +1,4 @@
+
 package br.com.foodtrack.tracking.services;
 
 import java.util.List;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import br.com.foodtrack.tracking.DTO.EntregadorDTO;
 import br.com.foodtrack.tracking.Dao.EntregadorDao;
+import br.com.foodtrack.tracking.model.Entregador;
 
 @Component
 public class EntregadorServiceImpl implements IEntregadorService{
@@ -14,13 +16,11 @@ public class EntregadorServiceImpl implements IEntregadorService{
 	@Autowired
 	private EntregadorDao dao;
 	
-	
 
 	@Override
-	public List<EntregadorDTO> buscaTodos() {
 
-		return null;
-//		return dao.buscarTodos();
+	public List<Entregador> buscaTodos() {
+		return dao.buscarTodos();
 	}
 	
 
