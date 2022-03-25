@@ -1,3 +1,4 @@
+
 package br.com.foodtrack.tracking.services;
 
 import java.util.List;
@@ -5,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import br.com.foodtrack.tracking.DTO.EntregadorDTO;
 import br.com.foodtrack.tracking.Dao.EntregadorDao;
 import br.com.foodtrack.tracking.model.Entregador;
 
@@ -20,6 +22,5 @@ public class EntregadorServiceImpl implements IEntregadorService{
 	public List<Entregador> buscaTodos() {
 		return dao.buscarTodos();
 	}
-	
-
 }
+
