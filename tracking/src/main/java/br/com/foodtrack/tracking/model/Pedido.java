@@ -18,41 +18,30 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 @Table(name = "pedido")
 public class Pedido {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer codigoPedido;
-	
-	@Column(name = "dataPedido", nullable = false)
+
+	@Column(name = "datapedido", nullable = false)
 	private LocalDate dataPedido;
-	
+
 	@Column(name = "status", length = 20, nullable = false)
 	private String statusPedido;
-	
+
+	@Column(name = "descricao", length = 100, nullable = false)
+	private String descricaoPedido;
+
 	@ManyToOne
-	@JoinColumn(name = "idCliente")
+	@JoinColumn(name = "idcliente")
 	private Cliente cliente;
-	
+
 	@ManyToOne
-	@JoinColumn(name = "idEntregador")
+	@JoinColumn(name = "identregador")
 	@JsonIgnoreProperties("listaPedidos")
 	private Entregador entregador;
-	
-	
-	@OneToMany(mappedBy = "pedido")
-	@JsonIgnoreProperties("pedido")
-	private List<Rastreamento> listaRastreamentoPedidos;
 
-	
-	
-	
-	public Pedido(Integer codigoPedido, LocalDate dataPedido, String statusPedido, Cliente cliente) {
-		super();
-		this.codigoPedido = codigoPedido;
-		this.dataPedido = dataPedido;
-		this.statusPedido = statusPedido;		
-	}
 
 	public Integer getCodigoPedido() {
 		return codigoPedido;
@@ -78,6 +67,14 @@ public class Pedido {
 		this.statusPedido = statusPedido;
 	}
 
+	public String getDescricaoPedido() {
+		return descricaoPedido;
+	}
+
+	public void setDescricaoPedido(String descricaoPedido) {
+		this.descricaoPedido = descricaoPedido;
+	}
+
 	public Cliente getCliente() {
 		return cliente;
 	}
@@ -93,13 +90,6 @@ public class Pedido {
 	public void setEntregador(Entregador entregador) {
 		this.entregador = entregador;
 	}
-	
-	public List<Rastreamento> getListaRastreamentoPedidos() {
-		return listaRastreamentoPedidos;
-	}
 
-	public void setListaRastreamentoPedidos(List<Rastreamento> listaRastramentoPedidos) {
-		this.listaRastreamentoPedidos = listaRastramentoPedidos;
-	}
-	
+
 }
