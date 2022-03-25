@@ -11,13 +11,13 @@ public interface EntregadorDao extends CrudRepository<Entregador, Integer> {
         public Entregador findByEmail(String email);
         
 	@Query(" SELECT "
-		+"new br.com.foodtrack.tracking.DTO.EntregadorDTO("
-		+" entregador.codigoEntregador, "
-		+" entregador.nome, "
-		+" entregador.cpf, "
-		+" entregador.senha, "
-		+" entregador.email "
-        +" entregador.telefone) "
-	    +" FROM Entregador as entregador")
+		+"new br.com.foodtrack.tracking.model.Entregador("
+		+" codigoEntregador, "
+		+" nome, "
+		+" cpf, "
+		+" senha, "
+		+" email, "
+        +" telefone) "
+	    +" FROM Entregador")
 	public List<Entregador> buscarTodos();
 }
