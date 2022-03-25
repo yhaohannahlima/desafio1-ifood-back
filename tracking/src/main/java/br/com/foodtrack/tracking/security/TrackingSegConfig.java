@@ -17,6 +17,7 @@ public class TrackingSegConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers(HttpMethod.GET, "/pedidos/abertos*").permitAll()
 		.antMatchers(HttpMethod.POST, "/pedidos/abertos*").permitAll()
 		.antMatchers(HttpMethod.PUT, "/pedidos/aceitar/*").permitAll()
+		.antMatchers(HttpMethod.PUT, "/pedidos/finalizar/*").permitAll()
 		.antMatchers(HttpMethod.GET, "/entregadores*").permitAll()
 		.anyRequest().authenticated().and().cors();		
 	}
