@@ -20,10 +20,15 @@ public class PedidoController {
 	@Autowired
 	private PedidoDao dao;
 	
+	@GetMapping("/pedidos")
+	public ResponseEntity<?> listarTodos(){
+		List<Pedido> pedidos = (List<Pedido>) dao.findAll();		
+		return ResponseEntity.status(200).body(pedidos);
+	}
+	
 	@GetMapping("/pedidos/abertos")
 	public ResponseEntity<?> listarTodosAbertos(){
-		List<Pedido> pedidos = (List<Pedido>) dao.findAll();
-		
+		List<Pedido> pedidos = (List<Pedido>) dao.buscarPedidosPorStatus("aberto");		
 		return ResponseEntity.status(200).body(pedidos);
 	}
 
