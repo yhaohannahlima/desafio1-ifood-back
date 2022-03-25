@@ -15,7 +15,7 @@ import br.com.foodtrack.tracking.services.IEntregadorLoginService;
 @CrossOrigin("*")
 public class LoginController {
     
-	@Autowired
+    @Autowired
 	private IEntregadorLoginService service;
 	
 	@PostMapping("/login")
