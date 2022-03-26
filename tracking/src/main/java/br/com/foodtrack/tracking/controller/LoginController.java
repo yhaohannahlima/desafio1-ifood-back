@@ -19,13 +19,13 @@ public class LoginController {
 	private IEntregadorLoginService service;
 	
 	@PostMapping("/login")
-	public ResponseEntity<Token> acessar(@RequestBody EntregadorLoginDTO dadosAcesso){
+	public ResponseEntity<?> acessar(@RequestBody EntregadorLoginDTO dadosAcesso){
 		Token token = service.gerarAcessoEntregador(dadosAcesso);
 		
 		if (token != null) {
 			return ResponseEntity.ok(token);
 		}
-	   return ResponseEntity.status(401).build();
+	   return ResponseEntity.status(401).body("Usuário Inválido!");
 	}
    
 
