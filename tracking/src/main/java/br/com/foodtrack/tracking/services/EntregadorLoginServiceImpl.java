@@ -21,13 +21,8 @@ public class EntregadorLoginServiceImpl implements IEntregadorLoginService{
 		Entregador usuario = dao.findByEmail(dadosLogin.getEmail());
 		
 		try {
-
-			if (usuario != null) {
+            if (usuario != null) {
 				String senhaLogin = dadosLogin.getSenha();
-			
-				System.out.println("Senha login = " + senhaLogin);
-				System.out.println("Senha usuario  = " + usuario.getSenha());
-
 				if (senhaLogin.equals(usuario.getSenha())) {
 					return new Token(TokenUtil.createToken(usuario));
 				}
