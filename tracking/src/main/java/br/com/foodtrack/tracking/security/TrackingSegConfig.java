@@ -13,13 +13,14 @@ public class TrackingSegConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().disable()
 		.authorizeHttpRequests()
 		.antMatchers(HttpMethod.POST, "/login").permitAll()
+		.antMatchers(HttpMethod.GET, "/pedidos*").permitAll()
 		.antMatchers(HttpMethod.GET, "/pedidos/abertos*").permitAll()
 		.antMatchers(HttpMethod.POST, "/pedidos/abertos*").permitAll()
-		.antMatchers(HttpMethod.PUT, "/pedidos/abertos*").permitAll()
+		.antMatchers(HttpMethod.PUT, "/pedidos/aceitar/*").permitAll()
+		.antMatchers(HttpMethod.PUT, "/pedidos/finalizar/*").permitAll()
 		.antMatchers(HttpMethod.GET, "/entregadores*").permitAll()
+		.antMatchers(HttpMethod.POST, "/rastreamento*").permitAll()
 		.anyRequest().authenticated().and().cors();
-
-		
 	}
 
 }
