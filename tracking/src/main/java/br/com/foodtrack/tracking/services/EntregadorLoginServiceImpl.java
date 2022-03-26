@@ -73,7 +73,7 @@ public class EntregadorLoginServiceImpl implements IEntregadorLoginService{
 
 	@Override
 	public Entregador recuperarDetalhes(Integer id) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
      
