@@ -41,7 +41,7 @@ public class PedidoController {
 
 	
 	@PutMapping("pedidos/aceitar/{idPedido}")
-	public ResponseEntity<?> entregadorAceitar(@PathVariable Integer idPedido, @RequestBody idEntregadroDTO id) {
+	public ResponseEntity<?> aceitarPedido(@PathVariable Integer idPedido, @RequestBody idEntregadroDTO id) {
 
 		//  TODO : Na V2 passar para service este tratamento!
 		try {
@@ -68,7 +68,7 @@ public class PedidoController {
 	}
 	
 	@PutMapping("pedidos/finalizar/{idPedido}")
-	public ResponseEntity<?> entregadorFinalizada(@PathVariable Integer idPedido, @RequestBody idEntregadroDTO id) {
+	public ResponseEntity<?> finalizarPedido(@PathVariable Integer idPedido, @RequestBody idEntregadroDTO id) {
 
 		//  TODO : Na V2 passar para service este tratamento!
 		try {
@@ -77,16 +77,19 @@ public class PedidoController {
 
 			if (buscarPedido != null && buscarEntregador != null) {
 				if (buscarPedido.getStatusPedido().equals("aberto")) {
-					return ResponseEntity.status(409).body("Este Pedido ainda está em aberto!");
+					return ResponseEntity.status(409).body("Este pedido ainda está em aberto!");
 				}
-				else if (buscarPedido.getStatusPedido().equals("entregue")){
+				else if (buscarPedido.getStatusPedido().equals("finalizado")){
 					return ResponseEntity.status(409).body("Este Pedido já foi entregue!");
+				}
+				else if (buscarPedido.getStatusPedido().equals("cancelado")){
+					return ResponseEntity.status(409).body("Este pedido está como cancelado!");
 				}
 				else if (buscarPedido.getEntregador().getCodigoEntregador() != id.getIdEntregador()) {
 					return ResponseEntity.status(409).body("Entregador da finalização difere do que aceitou pedido!");
  
 				} else {
-					buscarPedido.setStatusPedido("entregue");					
+					buscarPedido.setStatusPedido("finalizado");					
 					daoPedido.save(buscarPedido);
 					return ResponseEntity.ok().build();
 				}
@@ -101,4 +104,43 @@ public class PedidoController {
 	}
 	
 
+	@PutMapping("pedidos/cancelar/{idPedido}")
+	public ResponseEntity<?> cancelarPedido(@PathVariable Integer idPedido, @RequestBody idEntregadroDTO id) {
+
+		//  TODO : Na V2 passar para service este tratamento!
+		try {
+			Pedido buscarPedido = daoPedido.findById(idPedido).orElse(null);
+			Entregador buscarEntregador = daoEntregador.findById(id.getIdEntregador()).orElse(null);
+
+			if (buscarPedido != null && buscarEntregador != null) {
+				if (buscarPedido.getStatusPedido().equals("aberto")) {
+					return ResponseEntity.status(409).body("mensagem : Este pedido ainda está em aberto!");
+				}
+				else if (buscarPedido.getStatusPedido().equals("finalizado")){
+					return ResponseEntity.status(409).body("Este pedido já foi entregue!");
+				}
+				else if (buscarPedido.getStatusPedido().equals("cancelado")){
+					return ResponseEntity.status(409).body("Este pedido está como cancelado!");
+				}
+				else if (buscarPedido.getEntregador().getCodigoEntregador() != id.getIdEntregador()) {
+					return ResponseEntity.status(409).body("Entregador do cancelamento difere do que aceitou pedido!"); 
+				}								
+				else {
+					buscarPedido.setStatusPedido("cancelado");					
+					daoPedido.save(buscarPedido);
+					return ResponseEntity.ok().build();
+				}
+
+			} else {
+				return ResponseEntity.status(404).body("{Id pedido e/ou id entregador não localizado.}");
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(400).body("Campo obrigatório: idEntregador: Integer.");
+
+		}
+	}
+	
+	
+	
+	
 }
