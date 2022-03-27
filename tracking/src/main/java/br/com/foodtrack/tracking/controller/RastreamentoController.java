@@ -3,10 +3,13 @@ package br.com.foodtrack.tracking.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.foodtrack.tracking.DTO.RastreamentoDTO;
+import br.com.foodtrack.tracking.Dao.RastreamentoDao;
 import br.com.foodtrack.tracking.model.Rastreamento;
 import br.com.foodtrack.tracking.services.IRastreamentoService;
 
@@ -15,21 +18,23 @@ import br.com.foodtrack.tracking.services.IRastreamentoService;
 public class RastreamentoController {
 
 	@Autowired
-	IRastreamentoService service;
+	private IRastreamentoService service;
+	
 	
 	@PostMapping("/rastreamento")
-	public ResponseEntity<Rastreamento> inserirRota(@RequestBody Rastreamento rota){
+	public ResponseEntity<?> inserirRota(@RequestBody RastreamentoDTO rota){
 		
-		Rastreamento resultado = service.adicionarRota(rota);
+		RastreamentoDTO resultado = service.adicionarRota(rota);
 		
 		if(resultado != null) {
 			
-			System.out.println(resultado.getTempo());
-			return ResponseEntity.ok(resultado);
+			return ResponseEntity.status(201).build();
 		}
 		
 		return ResponseEntity.badRequest().build();
 		
 	}
+	
+
 	
 }

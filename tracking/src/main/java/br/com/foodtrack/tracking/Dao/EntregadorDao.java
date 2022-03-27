@@ -19,4 +19,5 @@ public interface EntregadorDao extends CrudRepository<Entregador, Integer> {
 			+" telefone) "
 			+" FROM Entregador") 
 	public List<Entregador> buscarTodos();
+	
 }
