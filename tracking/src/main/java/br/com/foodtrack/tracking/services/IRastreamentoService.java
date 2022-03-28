@@ -1,8 +1,10 @@
 package br.com.foodtrack.tracking.services;
 
-import br.com.foodtrack.tracking.model.Rastreamento;
+
+import br.com.foodtrack.tracking.DTO.RastreamentoDTO;
+
 
 public interface IRastreamentoService {
 
-	public Rastreamento adicionarRota(Rastreamento rota);
+	public RastreamentoDTO adicionarRota(RastreamentoDTO rota);
 }
