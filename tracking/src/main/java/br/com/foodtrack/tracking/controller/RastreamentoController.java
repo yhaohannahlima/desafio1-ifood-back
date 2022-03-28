@@ -13,6 +13,7 @@ import br.com.foodtrack.tracking.Dao.RastreamentoDao;
 import br.com.foodtrack.tracking.model.Rastreamento;
 import br.com.foodtrack.tracking.services.IRastreamentoService;
 
+
 @RestController
 @CrossOrigin("*")
 public class RastreamentoController {
