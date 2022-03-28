@@ -1,6 +1,6 @@
 package br.com.foodtrack.tracking.DTO;
 
-public class idEntregadroDTO {
+public class idEntregadorDTO {
 	private Integer idEntregador;
 
 	
