@@ -16,6 +16,7 @@ import br.com.foodtrack.tracking.Dao.EntregadorDao;
 import br.com.foodtrack.tracking.Dao.PedidoDao;
 import br.com.foodtrack.tracking.model.Entregador;
 import br.com.foodtrack.tracking.model.Pedido;
+import br.com.foodtrack.tracking.services.IPedidoService;
 
 @RestController
 @CrossOrigin("*")
@@ -26,16 +27,19 @@ public class PedidoController {
 
 	@Autowired
 	private EntregadorDao daoEntregador;
+	
+	@Autowired 
+	private IPedidoService servicePedido;
 
 	@GetMapping("/pedidos")
 	public ResponseEntity<?> listarTodos() {
-		List<Pedido> pedidos = (List<Pedido>) daoPedido.findAll();
+		List<Pedido> pedidos = servicePedido.listarTodosPedidos();
 		return ResponseEntity.status(200).body(pedidos);
 	}
 
 	@GetMapping("/pedidos/abertos")
 	public ResponseEntity<?> listarAbertos() {
-		List<Pedido> pedidos = (List<Pedido>) daoPedido.buscarPedidosPorStatus("aberto");
+		List<Pedido> pedidos = servicePedido.listarAbertoPeddidos();
 		return ResponseEntity.status(200).body(pedidos);
 	}
 
