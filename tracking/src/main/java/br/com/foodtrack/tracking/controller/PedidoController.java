@@ -41,7 +41,7 @@ public class PedidoController {
 
 	
 	@PutMapping("pedidos/aceitar/{idPedido}")
-	public ResponseEntity<?> aceitarPedido(@PathVariable Integer idPedido, @RequestBody idEntregadroDTO id) {
+	public ResponseEntity<?> aceitarPedido(@PathVariable Integer idPedido, @RequestBody idEntregadorDTO id) {
 
 		//  TODO : Na V2 passar para service este tratamento!
 		try {
@@ -68,7 +68,7 @@ public class PedidoController {
 	}
 	
 	@PutMapping("pedidos/finalizar/{idPedido}")
-	public ResponseEntity<?> finalizarPedido(@PathVariable Integer idPedido, @RequestBody idEntregadroDTO id) {
+	public ResponseEntity<?> finalizarPedido(@PathVariable Integer idPedido, @RequestBody idEntregadorDTO id) {
 
 		//  TODO : Na V2 passar para service este tratamento!
 		try {
@@ -105,7 +105,7 @@ public class PedidoController {
 	
 
 	@PutMapping("pedidos/cancelar/{idPedido}")
-	public ResponseEntity<?> cancelarPedido(@PathVariable Integer idPedido, @RequestBody idEntregadroDTO id) {
+	public ResponseEntity<?> cancelarPedido(@PathVariable Integer idPedido, @RequestBody idEntregadorDTO id) {
 
 		//  TODO : Na V2 passar para service este tratamento!
 		try {
