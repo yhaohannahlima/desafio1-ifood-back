@@ -8,7 +8,7 @@ public interface IPedidoService {
 
 	public List<Pedido> listarTodosPedidos();
 	public List<Pedido> listarAbertoPeddidos();
-	public boolean validarStatusPedido(String statusDesejado ,Integer idPedido, Integer idEntregador);
+	public boolean validarStatusPedido(String acaoStatus ,Integer idPedido, Integer idEntregador) throws Exception;
 	
 	
 }
