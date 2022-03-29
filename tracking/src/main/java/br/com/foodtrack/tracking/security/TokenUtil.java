@@ -29,7 +29,7 @@ public class TokenUtil {
 	
 	
 	public static String createToken(Entregador usuario) {
-		String id = "IdEntregador : " + Integer.toString(usuario.getCodigoEntregador());
+		String id = Integer.toString(usuario.getCodigoEntregador());
 		
 		Key secretKey = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
 		
