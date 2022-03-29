@@ -22,17 +22,9 @@ public class TrackingSegConfig extends WebSecurityConfigurerAdapter {
 		.and()
 		.authorizeHttpRequests()
 		.antMatchers(HttpMethod.POST, "/login").permitAll()
-		.antMatchers(HttpMethod.GET, "/pedidos*").permitAll()
-		.antMatchers(HttpMethod.GET, "/pedidos/abertos*").permitAll()
-//		.antMatchers(HttpMethod.PUT, "/pedidos/aceitar/*").permitAll()
-//		.antMatchers(HttpMethod.PUT, "/pedidos/finalizar/*").permitAll()
-//		.antMatchers(HttpMethod.PUT, "/pedidos/cancelar/*").permitAll()
-		.antMatchers(HttpMethod.GET, "/entregadores*").permitAll()
-//		.antMatchers(HttpMethod.POST, "/rastreamento*").permitAll()
-		.antMatchers(HttpMethod.GET, "/entregadorestodos*").permitAll()
 		.anyRequest().authenticated().and().cors();
 		
-		//criar filtro para tratar req.
+		
 		http.addFilterBefore(new TrackingReqFiltre(), UsernamePasswordAuthenticationFilter.class);
 	}
 
