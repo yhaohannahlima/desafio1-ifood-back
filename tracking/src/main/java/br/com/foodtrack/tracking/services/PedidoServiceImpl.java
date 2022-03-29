@@ -35,7 +35,9 @@ public class PedidoServiceImpl implements IPedidoService {
 
 		Pedido buscarPedido = daoPedido.findById(idPedido).orElse(null);
 		Entregador buscarEntregador = daoEntregador.findById(idEntregador).orElse(null);
-
+		
+		int idEntregadorPedido = buscarPedido.getCodigoPedido();
+		
 		if (checarSeExsite(buscarPedido) && checarSeExsite(buscarEntregador)) {
 			switch (acaoStatus) {
 			case "aceitar":
@@ -48,8 +50,11 @@ public class PedidoServiceImpl implements IPedidoService {
 					throw new Exception("409 - Este pedido já foi alocado: " + buscarPedido.getStatusPedido());
 				}
 
-				// falta validar se entregador do pedido está correto.
 			case "finalizar":
+				if (idEntregadorPedido != idEntregador) {
+					throw new Exception ("409 - idEntregador diferente do que está no pedido." );
+				}
+				
 				if (buscarPedido.getStatusPedido().equals("transito")) {
 					buscarPedido.setStatusPedido("finalizado");
 					daoPedido.save(buscarPedido);
@@ -58,8 +63,12 @@ public class PedidoServiceImpl implements IPedidoService {
 					throw new Exception(
 							"409 - Não possível finalizar, status do pedido: " + buscarPedido.getStatusPedido());
 				}
-				// falta validar se entregador do pedido está correto.
+				
 			case "cancelar":
+				if (idEntregadorPedido != idEntregador) {
+					throw new Exception ("409 - idEntregador diferente do que está no pedido." );
+				}
+				
 				if (buscarPedido.getStatusPedido().equals("transito")) {
 					buscarPedido.setStatusPedido("cancelado");
 					daoPedido.save(buscarPedido);
@@ -72,14 +81,11 @@ public class PedidoServiceImpl implements IPedidoService {
 			default:
 				throw new Exception("400 - Opção inválida!");
 			}
-//			if (checarStatus(buscarPedido, "aberto")) {
-//				return null;
-//			}
+
 
 		} else {
 			throw new Exception("404 - idPedido ou idEntregador não localizado!");
 		}
-//		return false;
 	}
 
 	private boolean checarSeExsite(Object obj) {
