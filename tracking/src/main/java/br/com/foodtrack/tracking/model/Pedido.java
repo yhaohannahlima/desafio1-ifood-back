@@ -1,6 +1,7 @@
 package br.com.foodtrack.tracking.model;
 
-import java.time.LocalDate;
+
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -24,8 +25,8 @@ public class Pedido {
 	@Column(name = "id")
 	private Integer codigoPedido;
 
-	@Column(name = "datapedido", nullable = false)
-	private LocalDate dataPedido;
+	@Column(name = "datapedido", nullable = false, columnDefinition = "TIMESTAMP")
+	private Timestamp dataPedido;
 
 	@Column(name = "status", length = 20, nullable = false)
 	private String statusPedido;
@@ -42,7 +43,7 @@ public class Pedido {
 	@JsonIgnoreProperties("listaPedidos")
 	private Entregador entregador;
 	
-	@OneToMany(mappedBy = "pedido")
+	@OneToMany(mappedBy = "pedido" )
 	@JsonIgnoreProperties("pedido")
 	private List<Rastreamento> listaRastreio;
 
@@ -55,11 +56,11 @@ public class Pedido {
 		this.codigoPedido = codigoPedido;
 	}
 
-	public LocalDate getDataPedido() {
+	public Timestamp getDataPedido() {
 		return dataPedido;
 	}
 
-	public void setDataPedido(LocalDate dataPedido) {
+	public void setDataPedido(Timestamp dataPedido) {
 		this.dataPedido = dataPedido;
 	}
 

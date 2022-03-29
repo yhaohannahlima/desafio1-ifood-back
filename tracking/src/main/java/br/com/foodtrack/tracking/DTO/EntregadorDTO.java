@@ -1,41 +1,29 @@
 package br.com.foodtrack.tracking.DTO;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.foodtrack.tracking.model.Entregador;
+import br.com.foodtrack.tracking.model.Pedido;
+
 
 public class EntregadorDTO {
 	
 	private Integer codigoEntregador;
 	private String nome;
-	private String cpf;
-	private String senha;
-	private String email;
-	private String telefone;
+	private List<PedidoDTO> pedidos;
 	
 	
-	public EntregadorDTO(Integer codigoEntregador, String nome, String cpf, String senha, String email,
-			String telefone) {
+	
+	
+	
+
+	public EntregadorDTO(Integer codigoEntregador, String nome, 
+			List<PedidoDTO> lista) {
 		super();
-		
 		this.codigoEntregador = codigoEntregador;
 		this.nome = nome;
-		this.cpf = cpf;
-		this.senha = senha;
-		this.email = email;
-		this.telefone = telefone;
-	}
-	
-	
-	public EntregadorDTO(Entregador entregador) {
-		
-		super();
-		
-		this.codigoEntregador = entregador.getCodigoEntregador();
-		this.nome = entregador.getNome();
-		this.cpf = entregador.getCpf();
-		this.senha = entregador.getSenha();
-		this.email = entregador.getEmail();
-		this.telefone = entregador.getTelefone();
-		
+		this.pedidos = lista;
 	}
 
 
@@ -59,54 +47,32 @@ public class EntregadorDTO {
 	}
 
 
-	public String getCpf() {
-		return cpf;
+
+	public List<PedidoDTO> getPedidos() {
+		return pedidos;
 	}
 
 
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
+
+	public void setPedidos(List<PedidoDTO> pedidos) {
+		this.pedidos = pedidos;
 	}
 
 
-	public String getSenha() {
-		return senha;
-	}
-
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-
-
-	public String getEmail() {
-		return email;
-	}
-
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-
-	public String getTelefone() {
-		return telefone;
-	}
-
-
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
-	}
 	
-	
+
+
 	public static EntregadorDTO fromEntregador(Entregador entregador) {
 		
-		return new EntregadorDTO(entregador.getCodigoEntregador(),
-								 entregador.getNome(),
-								 entregador.getCpf(),
-								 entregador.getSenha(),
-								 entregador.getEmail(),
-								 entregador.getTelefone());
+		 List<PedidoDTO> lista = new ArrayList<PedidoDTO>();
+		 
+		 for(Pedido pedido : entregador.getListaPedidos()) {
+			 
+			 lista.add(PedidoDTO.fromPedido(pedido));
+		 }
+		
+		return new EntregadorDTO(entregador.getCodigoEntregador(),entregador.getNome(),
+			lista);
 	}
 	
 

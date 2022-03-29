@@ -12,6 +12,8 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import br.com.foodtrack.tracking.DTO.PedidoDTO;
+
 @Entity
 @Table(name = "entregador")
 public class Entregador {
@@ -105,6 +107,7 @@ public class Entregador {
 	}
 
 	public List<Pedido> getListaPedidos() {
+		
 		return listaPedidos;
 	}
 

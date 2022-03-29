@@ -1,6 +1,8 @@
 package br.com.foodtrack.tracking.DTO;
 
-import java.time.LocalDate;
+
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -18,39 +20,24 @@ import br.com.foodtrack.tracking.model.Rastreamento;
 public class PedidoDTO {
 
 	private Integer codigoPedido;
-	private LocalDate dataPedido;
+	private Timestamp dataPedido;
 	private String statusPedido;
 	private String descricaoPedido;
-	private Cliente cliente;
-	private Integer codigoCliente;
-	private String clienteNome;
-	private Entregador entregador;
-	private Integer codigoEntregador;
+	private List<RastreamentoDTO> rastreamento;
 
-	public PedidoDTO() {
 
-	}
-
-	public PedidoDTO(Integer codigoPedido, LocalDate dataPedido, String statusPedido, String descricaoPedido) {
+	
+	
+	
+	
+	public PedidoDTO(Integer codigoPedido, Timestamp dataPedido, String statusPedido, String descricaoPedido,
+			List<RastreamentoDTO> rastreamento) {
 		super();
 		this.codigoPedido = codigoPedido;
 		this.dataPedido = dataPedido;
 		this.statusPedido = statusPedido;
 		this.descricaoPedido = descricaoPedido;
-	}
-
-	public PedidoDTO(Integer codigoPedido, LocalDate dataPedido, String statusPedido, String descricaoPedido,
-			Cliente cliente, Integer codigoCliente, String clienteNome, Entregador entregador,
-			Integer codigoEntregador) {
-		super();
-		this.codigoPedido = codigoPedido;
-		this.dataPedido = dataPedido;
-		this.statusPedido = statusPedido;
-		this.descricaoPedido = descricaoPedido;
-		this.cliente = new Cliente();
-		this.clienteNome = cliente.getNome();
-		this.entregador = new Entregador();
-		this.codigoEntregador = entregador.getCodigoEntregador();
+		this.rastreamento = rastreamento;
 	}
 
 	public Integer getCodigoPedido() {
@@ -61,11 +48,11 @@ public class PedidoDTO {
 		this.codigoPedido = codigoPedido;
 	}
 
-	public LocalDate getDataPedido() {
+	public Timestamp getDataPedido() {
 		return dataPedido;
 	}
 
-	public void setDataPedido(LocalDate dataPedido) {
+	public void setDataPedido(Timestamp dataPedido) {
 		this.dataPedido = dataPedido;
 	}
 
@@ -85,44 +72,27 @@ public class PedidoDTO {
 		this.descricaoPedido = descricaoPedido;
 	}
 
-	public Cliente getCliente() {
-		return cliente;
+	
+	
+	
+	public List<RastreamentoDTO> getRastreamento() {
+		return rastreamento;
 	}
 
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
+	public void setRastreamento(List<RastreamentoDTO> rastreamento) {
+		this.rastreamento = rastreamento;
 	}
 
-	public Integer getCodigoCliente() {
-		return codigoCliente;
+	public static PedidoDTO fromPedido(Pedido pedido) {
+		
+	List<RastreamentoDTO> lista = new ArrayList<RastreamentoDTO>();
+	
+	for(Rastreamento rastreamento : pedido.getListaRastreio()) {
+		
+		lista.add(RastreamentoDTO.fromRastreamento(rastreamento));
 	}
-
-	public void setCodigoCliente(Integer codigoCliente) {
-		this.codigoCliente = codigoCliente;
-	}
-
-	public String getClienteNome() {
-		return clienteNome;
-	}
-
-	public void setClienteNome(String clienteNome) {
-		this.clienteNome = clienteNome;
-	}
-
-	public Entregador getEntregador() {
-		return entregador;
-	}
-
-	public void setEntregador(Entregador entregador) {
-		this.entregador = entregador;
-	}
-
-	public Integer getCodigoEntregador() {
-		return codigoEntregador;
-	}
-
-	public void setCodigoEntregador(Integer codigoEntregador) {
-		this.codigoEntregador = codigoEntregador;
+		return new PedidoDTO(pedido.getCodigoPedido(),pedido.getDataPedido(),pedido.getStatusPedido(),
+							 pedido.getDescricaoPedido(),lista);
 	}
 
 }

@@ -44,6 +44,7 @@ public class PedidoController {
 	}
 
 	@PutMapping("pedidos/aceitar/{idPedido}")
+
 	public ResponseEntity<?> aceitarPedido(@PathVariable Integer idPedido, @RequestBody idEntregadorDTO id) {
 		try {
 			servicePedido.validarStatusPedido("aceitar", idPedido, id.getIdEntregador());
@@ -54,6 +55,7 @@ public class PedidoController {
 	}
 
 	@PutMapping("pedidos/finalizar/{idPedido}")
+
 	public ResponseEntity<?> finalizarPedido(@PathVariable Integer idPedido, @RequestBody idEntregadorDTO id) {
 		try {
 			servicePedido.validarStatusPedido("finalizar", idPedido, id.getIdEntregador());
