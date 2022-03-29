@@ -67,7 +67,8 @@ public class RastreamentoDTO {
 	}
 
 	public static RastreamentoDTO fromRastreamento(Rastreamento rastreamento) {
-
+		
+		
 		return new RastreamentoDTO(rastreamento.getCodigoRastreamento(), rastreamento.getLatitude(),
 				rastreamento.getLongitude(), rastreamento.getTempo(), rastreamento.getPedido().getCodigoPedido());
 	}
