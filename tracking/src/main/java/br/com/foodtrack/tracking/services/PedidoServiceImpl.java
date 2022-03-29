@@ -1,15 +1,16 @@
 package br.com.foodtrack.tracking.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import br.com.foodtrack.tracking.DTO.PedidoDTO;
 import br.com.foodtrack.tracking.Dao.EntregadorDao;
 import br.com.foodtrack.tracking.Dao.PedidoDao;
 import br.com.foodtrack.tracking.model.Entregador;
 import br.com.foodtrack.tracking.model.Pedido;
-import net.bytebuddy.implementation.bytecode.Throw;
 
 @Component
 public class PedidoServiceImpl implements IPedidoService {
@@ -21,13 +22,22 @@ public class PedidoServiceImpl implements IPedidoService {
 	private EntregadorDao daoEntregador;
 
 	@Override
-	public List<Pedido> listarTodosPedidos() {
-		return (List<Pedido>) daoPedido.findAll();
+	public List<PedidoDTO> listarTodosPedidos() {
+		List<Pedido> pedidos = (List<Pedido>) daoPedido.findAll();
+		List<PedidoDTO> pedidosDTO = new ArrayList<PedidoDTO>();
+		for(Pedido p : pedidos) {			
+			pedidosDTO.add(PedidoDTO.fromPedido(p));
+		}		
+		return pedidosDTO;	
 	}
+	
+	
 
 	@Override
 	public List<Pedido> listarAbertoPeddidos() {
-		return (List<Pedido>) daoPedido.buscarPedidosPorStatus("aberto");
+		 List<Pedido> pedidosAbertos = (List<Pedido>) daoPedido.buscarPedidosPorStatus("aberto");
+		 
+		 return pedidosAbertos;
 	}
 
 	@Override
