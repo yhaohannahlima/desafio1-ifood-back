@@ -37,8 +37,9 @@ public class PedidoServiceImpl implements IPedidoService {
 
 		Pedido buscarPedido = daoPedido.findById(idPedido).orElse(null);
 		Entregador buscarEntregador = daoEntregador.findById(idEntregador).orElse(null);
-
-		int idEntregadorPedido = buscarPedido.getCodigoPedido();
+		
+		int idEntregadorPedido = buscarPedido.getEntregador().getCodigoEntregador();
+		
 
 		if (checarSeExsite(buscarPedido) && checarSeExsite(buscarEntregador)) {
 			switch (acaoStatus) {
@@ -93,7 +94,5 @@ public class PedidoServiceImpl implements IPedidoService {
 		return obj != null;
 	}
 
-	private boolean checarStatus(Pedido pedido, String status) {
-		return pedido.getStatusPedido().equals(status);
-	}
+	
 }
