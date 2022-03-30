@@ -19,34 +19,29 @@ public class RastreamentoServiceImpl implements IRastreamentoService {
 	private PedidoDao pedidoDao;
 
 	@Override
-	public RastreamentoDTO adicionarRota(RastreamentoDTO rota) {
+	public RastreamentoDTO adicionarRota(RastreamentoDTO rota) throws Exception {
 
-		try {
-			if ((rota.getLatitude() != null) && (rota.getLongitude() != null) && (rota.getTempo() != null)
-					&& (rota.getIdPedido() != null)) {
-				
-				Pedido pedido = pedidoDao.findById(rota.getIdPedido()).orElse(null);
-				
-				if (pedido != null && pedido.getStatusPedido().equals("transito")) {
-					
-					Rastreamento rastreamento = new Rastreamento();
-					rastreamento.setLatitude(rota.getLatitude());
-					rastreamento.setLongitude(rota.getLongitude());
-					rastreamento.setTempo(rota.getTempo());
-					rastreamento.setPedido(pedido);
-					rastreamentoDao.save(rastreamento);
-					
-					return RastreamentoDTO.fromRastreamento(rastreamento);
-			
-				}
+		if ((rota.getLatitude() != null) && (rota.getLongitude() != null) && (rota.getTempo() != null)
+				&& (rota.getIdPedido() != null)) {
+
+			Pedido pedido = pedidoDao.findById(rota.getIdPedido()).orElse(null);
+
+			if (pedido != null && pedido.getStatusPedido().equals("transito")) {
+
+				Rastreamento rastreamento = new Rastreamento();
+				rastreamento.setLatitude(rota.getLatitude());
+				rastreamento.setLongitude(rota.getLongitude());
+				rastreamento.setTempo(rota.getTempo());
+				rastreamento.setPedido(pedido);
+				rastreamentoDao.save(rastreamento);
+
+				return RastreamentoDTO.fromRastreamento(rastreamento);
 
 			}
 
-		} catch (Exception ex) {
 
-			ex.printStackTrace();
+			throw new Exception("409 - CONFLICT");
 		}
-
-		return null;
+		throw new Exception("400 - BAD REQUEST");
 	}
 }

@@ -11,29 +11,32 @@ import br.com.foodtrack.tracking.Dao.EntregadorDao;
 import br.com.foodtrack.tracking.model.Entregador;
 
 @Component
-public class EntregadorServiceImpl implements IEntregadorService{
-	
+public class EntregadorServiceImpl implements IEntregadorService {
+
 	@Autowired
 	private EntregadorDao dao;
-	
-	
-	
 
 	@Override
 	public List<Entregador> buscaTodos() {
 		return dao.buscarTodos();
 	}
 
-
 	@Override
-	public EntregadorDTO buscarUm(Integer id) {
+	public EntregadorDTO buscarUm(Integer id) throws Exception {
 		
-		Entregador resposta = dao.findById(id).orElse(null);
 		
-		return  EntregadorDTO.fromEntregador(resposta);
-	}
+			Entregador resposta = dao.findById(id).orElse(null);
+			if(resposta != null) {
+				
+				return  EntregadorDTO.fromEntregador(resposta);
+			}
+		
+			 	throw new Exception("404 - NOT FOUND");
 	
+		
+		}
+		
+		
 	
 
 }
-

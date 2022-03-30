@@ -16,21 +16,19 @@ public class EntregadorLoginServiceImpl implements IEntregadorLoginService{
 	private EntregadorDao dao;
 
 	@Override
-	public Token gerarAcessoEntregador(EntregadorLoginDTO dadosLogin) {
+	public Token gerarAcessoEntregador(EntregadorLoginDTO dadosLogin) throws Exception{
 		System.out.println("Estou aqui");
 		Entregador usuario = dao.findByEmail(dadosLogin.getEmail());
 		
-		try {
+		
             if (usuario != null) {
 				String senhaLogin = dadosLogin.getSenha();
 				if (senhaLogin.equals(usuario.getSenha())) {
 					return new Token(TokenUtil.createToken(usuario));
 				}
 			}
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-		return null;
+		
+		throw new Exception("404 - NOT FOUND");
 	}
 }
 	

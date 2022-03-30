@@ -20,11 +20,17 @@ public class LoginController {
 	
 	@PostMapping("/login")
 	public ResponseEntity<?> acessar(@RequestBody EntregadorLoginDTO dadosAcesso){
-		Token token = service.gerarAcessoEntregador(dadosAcesso);
-		
-		if (token != null) {
-			return ResponseEntity.ok(token);
+		Token token;
+		try {
+			token = service.gerarAcessoEntregador(dadosAcesso);
+			if (token != null) {
+				return ResponseEntity.ok(token);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			return ResponseEntity.status(404).body(e.getMessage());
 		}
+		
 	   return ResponseEntity.status(401).body("Usuário Inválido!");
 	}
    

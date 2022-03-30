@@ -6,5 +6,5 @@ import br.com.foodtrack.tracking.DTO.RastreamentoDTO;
 
 public interface IRastreamentoService {
 
-	public RastreamentoDTO adicionarRota(RastreamentoDTO rota);
+	public RastreamentoDTO adicionarRota(RastreamentoDTO rota) throws Exception;
 }
