@@ -74,6 +74,8 @@ public class PedidoDTO {
 		this.rastreamento = rastreamento;
 	}
 
+	
+	
 	public static PedidoDTO fromPedido(Pedido pedido) {
 		
 	List<RastreamentoDTO> lista = new ArrayList<RastreamentoDTO>();
