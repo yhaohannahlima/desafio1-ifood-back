@@ -35,12 +35,12 @@ public class PedidoServiceImpl implements IPedidoService {
 	@Override
 	public boolean validarStatusPedido(String acaoStatus, Integer idPedido, Integer idEntregador) throws Exception {
 
+		int idEntregadorPedido;
 		Pedido buscarPedido = daoPedido.findById(idPedido).orElse(null);
 		Entregador buscarEntregador = daoEntregador.findById(idEntregador).orElse(null);
 
-		int idEntregadorPedido = buscarPedido.getEntregador().getCodigoEntregador();
-
 		if (checarSeExsite(buscarPedido) && checarSeExsite(buscarEntregador)) {
+
 			switch (acaoStatus) {
 			case "aceitar":
 				if (buscarPedido.getStatusPedido().equals("aberto")) {
@@ -53,40 +53,13 @@ public class PedidoServiceImpl implements IPedidoService {
 				}
 
 			case "finalizar":
-
+				idEntregadorPedido = buscarPedido.getEntregador().getCodigoEntregador();
 				return acaoFinalizarOrCancelar(buscarPedido, idEntregadorPedido, idEntregador, "finalizado");
-				
 
-
-//				if (idEntregadorPedido != idEntregador) {
-//					throw new Exception("409 - idEntregador diferente do que está no pedido.");
-//				}
-//
-//				if (buscarPedido.getStatusPedido().equals("transito")) {
-//					buscarPedido.setStatusPedido("finalizado");
-//					daoPedido.save(buscarPedido);
-//					return true;
-//				} else {
-//					throw new Exception(
-//							"409 - Não possível finalizar, status do pedido: " + buscarPedido.getStatusPedido());
-//				}
 
 			case "cancelar":
+				idEntregadorPedido = buscarPedido.getEntregador().getCodigoEntregador();
 				return acaoFinalizarOrCancelar(buscarPedido, idEntregadorPedido, idEntregador, "cancelado");
-				
-
-//				if (idEntregadorPedido != idEntregador) {
-//					throw new Exception("409 - idEntregador diferente do que está no pedido.");
-//				}
-//
-//				if (buscarPedido.getStatusPedido().equals("transito")) {
-//					buscarPedido.setStatusPedido("cancelado");
-//					daoPedido.save(buscarPedido);
-//					return true;
-//				} else {
-//					throw new Exception(
-//							"409 - Não possível finalizar, status do pedido: " + buscarPedido.getStatusPedido());
-//				}
 
 			default:
 				throw new Exception("400 - Opção inválida!");
@@ -103,7 +76,7 @@ public class PedidoServiceImpl implements IPedidoService {
 
 	private boolean acaoFinalizarOrCancelar(Pedido buscarPedido, Integer idEntregadorPedido, Integer idEntregador,
 			String acao) throws Exception {
-		
+
 		if (idEntregadorPedido != idEntregador) {
 			throw new Exception("409 - idEntregador diferente do que está no pedido.");
 		}
