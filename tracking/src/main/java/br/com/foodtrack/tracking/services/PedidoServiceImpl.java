@@ -37,9 +37,8 @@ public class PedidoServiceImpl implements IPedidoService {
 
 		Pedido buscarPedido = daoPedido.findById(idPedido).orElse(null);
 		Entregador buscarEntregador = daoEntregador.findById(idEntregador).orElse(null);
-		
+
 		int idEntregadorPedido = buscarPedido.getEntregador().getCodigoEntregador();
-		
 
 		if (checarSeExsite(buscarPedido) && checarSeExsite(buscarEntregador)) {
 			switch (acaoStatus) {
@@ -54,32 +53,40 @@ public class PedidoServiceImpl implements IPedidoService {
 				}
 
 			case "finalizar":
-				if (idEntregadorPedido != idEntregador) {
-					throw new Exception("409 - idEntregador diferente do que está no pedido.");
-				}
 
-				if (buscarPedido.getStatusPedido().equals("transito")) {
-					buscarPedido.setStatusPedido("finalizado");
-					daoPedido.save(buscarPedido);
-					return true;
-				} else {
-					throw new Exception(
-							"409 - Não possível finalizar, status do pedido: " + buscarPedido.getStatusPedido());
-				}
+				return acaoFinalizarOrCancelar(buscarPedido, idEntregadorPedido, idEntregador, "finalizado");
+				
+
+
+//				if (idEntregadorPedido != idEntregador) {
+//					throw new Exception("409 - idEntregador diferente do que está no pedido.");
+//				}
+//
+//				if (buscarPedido.getStatusPedido().equals("transito")) {
+//					buscarPedido.setStatusPedido("finalizado");
+//					daoPedido.save(buscarPedido);
+//					return true;
+//				} else {
+//					throw new Exception(
+//							"409 - Não possível finalizar, status do pedido: " + buscarPedido.getStatusPedido());
+//				}
 
 			case "cancelar":
-				if (idEntregadorPedido != idEntregador) {
-					throw new Exception("409 - idEntregador diferente do que está no pedido.");
-				}
+				return acaoFinalizarOrCancelar(buscarPedido, idEntregadorPedido, idEntregador, "cancelado");
+				
 
-				if (buscarPedido.getStatusPedido().equals("transito")) {
-					buscarPedido.setStatusPedido("cancelado");
-					daoPedido.save(buscarPedido);
-					return true;
-				} else {
-					throw new Exception(
-							"409 - Não possível finalizar, status do pedido: " + buscarPedido.getStatusPedido());
-				}
+//				if (idEntregadorPedido != idEntregador) {
+//					throw new Exception("409 - idEntregador diferente do que está no pedido.");
+//				}
+//
+//				if (buscarPedido.getStatusPedido().equals("transito")) {
+//					buscarPedido.setStatusPedido("cancelado");
+//					daoPedido.save(buscarPedido);
+//					return true;
+//				} else {
+//					throw new Exception(
+//							"409 - Não possível finalizar, status do pedido: " + buscarPedido.getStatusPedido());
+//				}
 
 			default:
 				throw new Exception("400 - Opção inválida!");
@@ -94,5 +101,19 @@ public class PedidoServiceImpl implements IPedidoService {
 		return obj != null;
 	}
 
-	
+	private boolean acaoFinalizarOrCancelar(Pedido buscarPedido, Integer idEntregadorPedido, Integer idEntregador,
+			String acao) throws Exception {
+		
+		if (idEntregadorPedido != idEntregador) {
+			throw new Exception("409 - idEntregador diferente do que está no pedido.");
+		}
+		if (buscarPedido.getStatusPedido().equals("transito")) {
+			buscarPedido.setStatusPedido(acao);
+			daoPedido.save(buscarPedido);
+			return true;
+		} else {
+			throw new Exception("409 - Não possível finalizar, status do pedido: " + buscarPedido.getStatusPedido());
+		}
+	}
+
 }
