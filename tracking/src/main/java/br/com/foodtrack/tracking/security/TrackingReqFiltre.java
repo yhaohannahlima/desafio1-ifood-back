@@ -11,19 +11,29 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-public class TrackingReqFiltre extends OncePerRequestFilter{
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.MalformedJwtException;
+
+public class TrackingReqFiltre extends OncePerRequestFilter {
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-		
-		if(request.getHeader("Authorization") != null) {
-			Authentication auth = TokenUtil.validate(request);
-			SecurityContextHolder.getContext().setAuthentication(auth);
+
+		try {
+
+			if (request.getHeader("Authorization") != null) {
+				Authentication auth = TokenUtil.validate(request);
+				SecurityContextHolder.getContext().setAuthentication(auth);
+			}
+
+			filterChain.doFilter(request, response);
+		} catch (MalformedJwtException e) {
+			response.setStatus(401);
+		}catch (ExpiredJwtException e) {
+			response.setStatus(401);
 		}
-		
-		filterChain.doFilter(request, response);
-		
+
 	}
 
 }
