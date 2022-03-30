@@ -42,8 +42,14 @@ public class EntregadorController {
 	
 	
 	@GetMapping("/entregadores/{id}")
-	public ResponseEntity<EntregadorDTO> bucarUm(@PathVariable Integer id ){	
-		return ResponseEntity.ok(service.buscarUm(id));
+	public ResponseEntity<?> bucarUm(@PathVariable Integer id ) throws Exception{
+		try {
+			
+			return ResponseEntity.ok(service.buscarUm(id));
+		}catch(Exception e) {
+			
+			return ResponseEntity.status(404).body(e.getMessage());
+		}
 	}
 	
 
