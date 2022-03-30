@@ -22,7 +22,8 @@ create table pedido (
  id serial not null primary key,
  idCliente int not null,
  idEntregador int,
- dataPedido date not null,
+ descricao varchar(100) not null,
+ dataPedido timestamp not null,
  status varchar(20) not null,
  foreign key (idCliente) references cliente(id),
  foreign key(idEntregador) references entregador(id)		

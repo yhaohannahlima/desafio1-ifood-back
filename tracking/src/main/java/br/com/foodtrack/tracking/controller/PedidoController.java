@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.foodtrack.tracking.DTO.PedidoTodosDTO;
 import br.com.foodtrack.tracking.DTO.idEntregadorDTO;
 import br.com.foodtrack.tracking.Dao.EntregadorDao;
 import br.com.foodtrack.tracking.Dao.PedidoDao;
-import br.com.foodtrack.tracking.model.Entregador;
 import br.com.foodtrack.tracking.model.Pedido;
 import br.com.foodtrack.tracking.services.IPedidoService;
 
@@ -33,7 +33,8 @@ public class PedidoController {
 
 	@GetMapping("/pedidos")
 	public ResponseEntity<?> listarTodos() {
-		List<Pedido> pedidos = servicePedido.listarTodosPedidos();
+		List<PedidoTodosDTO> pedidos = (List<PedidoTodosDTO>) daoPedido.buscarTodosSimplificado();
+//		List<Pedido> pedidos = (List<Pedido>) daoPedido.findAll();
 		return ResponseEntity.status(200).body(pedidos);
 	}
 

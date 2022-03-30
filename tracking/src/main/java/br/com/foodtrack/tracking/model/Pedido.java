@@ -1,11 +1,11 @@
 package br.com.foodtrack.tracking.model;
 
-
 import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -42,11 +42,27 @@ public class Pedido {
 	@JoinColumn(name = "identregador")
 	@JsonIgnoreProperties("listaPedidos")
 	private Entregador entregador;
-	
-	@OneToMany(mappedBy = "pedido" )
+
+	@OneToMany(mappedBy = "pedido")
 	@JsonIgnoreProperties("pedido")
 	private List<Rastreamento> listaRastreio;
 
+	
+
+	public Pedido() {
+		
+	}
+	
+	public Pedido(Integer codigoPedido, Timestamp dataPedido, String statusPedido, String descricaoPedido,
+			Cliente cliente, Entregador entregador) {
+		super();
+		this.codigoPedido = codigoPedido;
+		this.dataPedido = dataPedido;
+		this.statusPedido = statusPedido;
+		this.descricaoPedido = descricaoPedido;
+		this.cliente = cliente;
+		this.entregador = entregador;
+	}
 
 	public Integer getCodigoPedido() {
 		return codigoPedido;
@@ -103,7 +119,5 @@ public class Pedido {
 	public void setListaRastreio(List<Rastreamento> listaRastreio) {
 		this.listaRastreio = listaRastreio;
 	}
-
-	
 
 }
