@@ -1,5 +1,6 @@
 package br.com.foodtrack.tracking.model;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -9,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -28,13 +30,13 @@ public class Rastreamento {
 	@Column(name = "longitude")
 	private Double longitude;
 	
-	@Column(name = "tempo")
-	private LocalDateTime tempo;
+	@Column(name = "tempo", columnDefinition = "TIMESTAMP")
+	private Timestamp tempo;
 	
 	
 	@ManyToOne
-	@JoinColumn(name = "idPedido")
-	@JsonIgnoreProperties("listaRastreamentoPedidos")
+	@JoinColumn(name = "idpedido")
+	@JsonIgnoreProperties("listaRastreio")
 	private Pedido pedido;
 
 
@@ -68,12 +70,13 @@ public class Rastreamento {
 	}
 
 
-	public LocalDateTime getTempo() {
+
+	public Timestamp getTempo() {
 		return tempo;
 	}
 
 
-	public void setTempo(LocalDateTime tempo) {
+	public void setTempo(Timestamp tempo) {
 		this.tempo = tempo;
 	}
 

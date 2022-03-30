@@ -1,6 +1,7 @@
 package br.com.foodtrack.tracking.model;
 
-import java.time.LocalDate;
+
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -18,41 +19,34 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 @Table(name = "pedido")
 public class Pedido {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer codigoPedido;
-	
-	@Column(name = "dataPedido", nullable = false)
-	private LocalDate dataPedido;
-	
+
+	@Column(name = "datapedido", nullable = false, columnDefinition = "TIMESTAMP")
+	private Timestamp dataPedido;
+
 	@Column(name = "status", length = 20, nullable = false)
 	private String statusPedido;
-	
+
+	@Column(name = "descricao", length = 100, nullable = false)
+	private String descricaoPedido;
+
 	@ManyToOne
-	@JoinColumn(name = "idCliente")
+	@JoinColumn(name = "idcliente")
 	private Cliente cliente;
-	
+
 	@ManyToOne
-	@JoinColumn(name = "idEntregador")
+	@JoinColumn(name = "identregador")
 	@JsonIgnoreProperties("listaPedidos")
 	private Entregador entregador;
 	
-	
-	@OneToMany(mappedBy = "pedido")
+	@OneToMany(mappedBy = "pedido" )
 	@JsonIgnoreProperties("pedido")
-	private List<Rastreamento> listaRastreamentoPedidos;
+	private List<Rastreamento> listaRastreio;
 
-	
-	
-	
-	public Pedido(Integer codigoPedido, LocalDate dataPedido, String statusPedido, Cliente cliente) {
-		super();
-		this.codigoPedido = codigoPedido;
-		this.dataPedido = dataPedido;
-		this.statusPedido = statusPedido;		
-	}
 
 	public Integer getCodigoPedido() {
 		return codigoPedido;
@@ -62,11 +56,11 @@ public class Pedido {
 		this.codigoPedido = codigoPedido;
 	}
 
-	public LocalDate getDataPedido() {
+	public Timestamp getDataPedido() {
 		return dataPedido;
 	}
 
-	public void setDataPedido(LocalDate dataPedido) {
+	public void setDataPedido(Timestamp dataPedido) {
 		this.dataPedido = dataPedido;
 	}
 
@@ -76,6 +70,14 @@ public class Pedido {
 
 	public void setStatusPedido(String statusPedido) {
 		this.statusPedido = statusPedido;
+	}
+
+	public String getDescricaoPedido() {
+		return descricaoPedido;
+	}
+
+	public void setDescricaoPedido(String descricaoPedido) {
+		this.descricaoPedido = descricaoPedido;
 	}
 
 	public Cliente getCliente() {
@@ -93,13 +95,15 @@ public class Pedido {
 	public void setEntregador(Entregador entregador) {
 		this.entregador = entregador;
 	}
-	
-	public List<Rastreamento> getListaRastreamentoPedidos() {
-		return listaRastreamentoPedidos;
+
+	public List<Rastreamento> getListaRastreio() {
+		return listaRastreio;
 	}
 
-	public void setListaRastreamentoPedidos(List<Rastreamento> listaRastramentoPedidos) {
-		this.listaRastreamentoPedidos = listaRastramentoPedidos;
+	public void setListaRastreio(List<Rastreamento> listaRastreio) {
+		this.listaRastreio = listaRastreio;
 	}
+
 	
+
 }
