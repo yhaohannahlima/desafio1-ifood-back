@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.foodtrack.tracking.DTO.PedidoDTO;
+import br.com.foodtrack.tracking.DTO.PedidoTodosDTO;
 import br.com.foodtrack.tracking.Dao.EntregadorDao;
 import br.com.foodtrack.tracking.Dao.PedidoDao;
 import br.com.foodtrack.tracking.model.Entregador;
@@ -22,22 +23,13 @@ public class PedidoServiceImpl implements IPedidoService {
 	private EntregadorDao daoEntregador;
 
 	@Override
-	public List<PedidoDTO> listarTodosPedidos() {
-		List<Pedido> pedidos = (List<Pedido>) daoPedido.findAll();
-		List<PedidoDTO> pedidosDTO = new ArrayList<PedidoDTO>();
-		for(Pedido p : pedidos) {			
-			pedidosDTO.add(PedidoDTO.fromPedido(p));
-		}		
-		return pedidosDTO;	
+	public List<PedidoTodosDTO> listarTodosPedidos() {
+		return daoPedido.buscarTodosSimplificado();
 	}
-	
-	
 
 	@Override
 	public List<Pedido> listarAbertoPeddidos() {
-		 List<Pedido> pedidosAbertos = (List<Pedido>) daoPedido.buscarPedidosPorStatus("aberto");
-		 
-		 return pedidosAbertos;
+		return daoPedido.buscarPedidosPorStatus("aberto");
 	}
 
 	@Override
@@ -45,9 +37,9 @@ public class PedidoServiceImpl implements IPedidoService {
 
 		Pedido buscarPedido = daoPedido.findById(idPedido).orElse(null);
 		Entregador buscarEntregador = daoEntregador.findById(idEntregador).orElse(null);
-		
+
 		int idEntregadorPedido = buscarPedido.getCodigoPedido();
-		
+
 		if (checarSeExsite(buscarPedido) && checarSeExsite(buscarEntregador)) {
 			switch (acaoStatus) {
 			case "aceitar":
@@ -62,9 +54,9 @@ public class PedidoServiceImpl implements IPedidoService {
 
 			case "finalizar":
 				if (idEntregadorPedido != idEntregador) {
-					throw new Exception ("409 - idEntregador diferente do que está no pedido." );
+					throw new Exception("409 - idEntregador diferente do que está no pedido.");
 				}
-				
+
 				if (buscarPedido.getStatusPedido().equals("transito")) {
 					buscarPedido.setStatusPedido("finalizado");
 					daoPedido.save(buscarPedido);
@@ -73,12 +65,12 @@ public class PedidoServiceImpl implements IPedidoService {
 					throw new Exception(
 							"409 - Não possível finalizar, status do pedido: " + buscarPedido.getStatusPedido());
 				}
-				
+
 			case "cancelar":
 				if (idEntregadorPedido != idEntregador) {
-					throw new Exception ("409 - idEntregador diferente do que está no pedido." );
+					throw new Exception("409 - idEntregador diferente do que está no pedido.");
 				}
-				
+
 				if (buscarPedido.getStatusPedido().equals("transito")) {
 					buscarPedido.setStatusPedido("cancelado");
 					daoPedido.save(buscarPedido);
@@ -91,7 +83,6 @@ public class PedidoServiceImpl implements IPedidoService {
 			default:
 				throw new Exception("400 - Opção inválida!");
 			}
-
 
 		} else {
 			throw new Exception("404 - idPedido ou idEntregador não localizado!");
