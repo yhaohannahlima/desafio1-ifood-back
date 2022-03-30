@@ -49,21 +49,27 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-           <dependency>
+		<dependency>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-compiler-plugin</artifactId>
+			<version>3.10.1</version>
+			<type>maven-plugin</type>
+		</dependency>
+		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-api</artifactId>
-            <version>0.11.1</version>
-        </dependency>
-           <dependency>
+			<version>0.11.1</version>
+		</dependency>
+		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-impl</artifactId>
-            <version>0.11.1</version>
-        </dependency>
-          <dependency>
+			<version>0.11.1</version>
+		</dependency>
+		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-jackson</artifactId>
-            <version>0.11.1</version>
-        </dependency>
+			<version>0.11.1</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -74,5 +80,5 @@
 			</plugin>
 		</plugins>
 	</build>
-   
+
 </project>
