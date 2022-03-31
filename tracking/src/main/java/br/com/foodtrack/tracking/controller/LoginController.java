@@ -28,10 +28,10 @@ public class LoginController {
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			return ResponseEntity.status(404).body(e.getMessage());
+			return ResponseEntity.status(400).body(e.getMessage());
 		}
 		
-	   return ResponseEntity.status(401).body("Usuário Inválido!");
+	   return ResponseEntity.status(400).body("Usuário Inválido!");
 	}
    
 
