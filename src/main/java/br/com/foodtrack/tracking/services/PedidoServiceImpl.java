@@ -1,12 +1,12 @@
 package br.com.foodtrack.tracking.services;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.foodtrack.tracking.DTO.PedidoDTO;
+
 import br.com.foodtrack.tracking.DTO.PedidoTodosDTO;
 import br.com.foodtrack.tracking.Dao.EntregadorDao;
 import br.com.foodtrack.tracking.Dao.PedidoDao;
@@ -35,65 +35,69 @@ public class PedidoServiceImpl implements IPedidoService {
 	@Override
 	public boolean validarStatusPedido(String acaoStatus, Integer idPedido, Integer idEntregador) throws Exception {
 
-		Pedido buscarPedido = daoPedido.findById(idPedido).orElse(null);
-		Entregador buscarEntregador = daoEntregador.findById(idEntregador).orElse(null);
+		Pedido bdPedido = daoPedido.findById(idPedido).orElse(null);
+		Entregador bdEntregador = daoEntregador.findById(idEntregador).orElse(null);
 
-		int idEntregadorPedido = buscarPedido.getCodigoPedido();
+		if (checarSeExsite(bdPedido) && checarSeExsite(bdEntregador)) {
 
-		if (checarSeExsite(buscarPedido) && checarSeExsite(buscarEntregador)) {
 			switch (acaoStatus) {
 			case "aceitar":
-				if (buscarPedido.getStatusPedido().equals("aberto")) {
-					buscarPedido.setStatusPedido("transito");
-					buscarPedido.setEntregador(buscarEntregador);
-					daoPedido.save(buscarPedido);
-					return true;
-				} else {
-					throw new Exception("409 - Este pedido já foi alocado: " + buscarPedido.getStatusPedido());
-				}
+				return acaoAceitar(bdPedido, bdEntregador);
 
 			case "finalizar":
-				if (idEntregadorPedido != idEntregador) {
-					throw new Exception("409 - idEntregador diferente do que está no pedido.");
-				}
-
-				if (buscarPedido.getStatusPedido().equals("transito")) {
-					buscarPedido.setStatusPedido("finalizado");
-					daoPedido.save(buscarPedido);
-					return true;
-				} else {
-					throw new Exception(
-							"409 - Não possível finalizar, status do pedido: " + buscarPedido.getStatusPedido());
-				}
+				return acaoFinalizarOuCancelar(bdPedido, idEntregador, "finalizado");
 
 			case "cancelar":
-				if (idEntregadorPedido != idEntregador) {
-					throw new Exception("409 - idEntregador diferente do que está no pedido.");
-				}
-
-				if (buscarPedido.getStatusPedido().equals("transito")) {
-					buscarPedido.setStatusPedido("cancelado");
-					daoPedido.save(buscarPedido);
-					return true;
-				} else {
-					throw new Exception(
-							"409 - Não possível finalizar, status do pedido: " + buscarPedido.getStatusPedido());
-				}
+				return acaoFinalizarOuCancelar(bdPedido, idEntregador, "cancelado");
 
 			default:
-				throw new Exception("400 - Opção inválida!");
+				throw new Exception("Erro requisição - Opção inválida!");
 			}
-
-		} else {
-			throw new Exception("404 - idPedido ou idEntregador não localizado!");
 		}
+		throw new Exception("Não encontrado - idPedido ou idEntregador não localizado!");
 	}
+	
 
 	private boolean checarSeExsite(Object obj) {
 		return obj != null;
 	}
+	
 
-	private boolean checarStatus(Pedido pedido, String status) {
-		return pedido.getStatusPedido().equals(status);
+	private boolean acaoAceitar(Pedido pedido, Entregador entregador) throws Exception {
+
+		if (pedido.getStatusPedido().equals("aberto")) {
+			pedido.setStatusPedido("transito");
+			pedido.setEntregador(entregador);
+			daoPedido.save(pedido);
+			return true;
+		}
+
+		throw new Exception("Conflito - Este pedido já foi alocado, status: " + pedido.getStatusPedido());
 	}
+
+	
+	private boolean acaoFinalizarOuCancelar(Pedido pedido, Integer idEntregador, String acao) throws Exception {
+
+		Integer idEntregadorPedido = null;
+
+		if (checarSeExsite(pedido.getEntregador())) {
+			idEntregadorPedido = pedido.getEntregador().getCodigoEntregador();
+		} else {
+			throw new Exception("Ops - Pedido sem idEntregador, está com problemas no BD!");
+		}
+
+		if (idEntregadorPedido != idEntregador) {
+			throw new Exception("Conflito - idEntregador diferente do que está no pedido.");
+		}
+
+		if (pedido.getStatusPedido().equals("transito")) {
+			pedido.setStatusPedido(acao);
+			daoPedido.save(pedido);
+			return true;
+		}
+		
+		throw new Exception("Conflito - Não foi possível exceutar, status do pedido: " + pedido.getStatusPedido());
+
+	}
+
 }
