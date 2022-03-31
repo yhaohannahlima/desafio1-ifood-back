@@ -2,7 +2,7 @@
 
 
 <h1 align="center">
-     <a href="#" alt="Desafio-iFood"> Desafio-iFood-Back - Equipe Traceback (6) </a>
+     Desafio-iFood-Back - Equipe Traceback (6) 
 </h1>
 
 ![Badge em Desenvolvimento](http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=GREEN&style=for-the-badge)
@@ -77,14 +77,14 @@ As seguintes linguagens/tecnologias foram usadas na construção do projeto:
 
 ## 🦸 Time de desenvolvimento
 
-⚙️**Bianca Padilha** - [GitHub](https://github.com/Padilha27) [Linkedin]() 
+⚙️**Bianca Padilha** - [GitHub](https://github.com/Padilha27) [Linkedin](https://www.linkedin.com/in/bianca-padilha-070772174/) 
 
-⚙️**Yhaohannah Lima** - [GitHub](https://github.com/Pam18) [Linkedin]()
+⚙️**Yhaohannah Lima** - [GitHub](https://github.com/Pam18) [Linkedin](https://www.linkedin.com/in/yhaohannah-lima-954690216/)
 
 ⚙️**Eduardo Gomes** - [GitHub](https://github.com/Eduardo377) [Linkedin](https://www.linkedin.com/in/eduardogomes377/)
 
-⚙️**Franklin Percicotte** - [GitHub](https://github.com/frankpercicotte) [Linkedin]()
+⚙️**Franklin Percicotte** - [GitHub](https://github.com/frankpercicotte) [Linkedin](https://www.linkedin.com/in/franklinpercicotte/)
 
-⚙️**Guilherme Campos** - [GitHub](https://github.com/GuilhermeFelipeCampos) [Linkedin]()
+⚙️**Guilherme Campos** - [GitHub](https://github.com/GuilhermeFelipeCampos) [Linkedin](https://www.linkedin.com/in/guilhermefelipecampos/)
 
 ---
